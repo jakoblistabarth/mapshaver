@@ -1,11 +1,11 @@
 "use client";
 
 import Snapshot from "@/src/Snapshot/Snapshot";
+import * as Tooltip from "@radix-ui/react-tooltip";
+import clsx from "clsx";
+import { ScaleLinear } from "d3";
 import { FC } from "react";
 import useAppStore from "../helpers/store";
-import clsx from "clsx";
-import * as Tooltip from "@radix-ui/react-tooltip";
-import { ScaleLinear } from "d3";
 
 type Props = {
   snapshots: Snapshot[];
@@ -21,15 +21,15 @@ const SnapshotTimeline: FC<Props> = ({ snapshots, colorScale }) => {
   const gap = 2;
 
   return !snapshots.length ? null : (
-    <svg
-      width={snapshots.length * width + (snapshots.length - 1) * gap + 2}
-      height={height + 2}
-    >
-      {snapshots.map((d, i) => {
-        const isActive = activeSnapshot?.id === d.id;
-        return (
-          <Tooltip.Provider key={`${d.id}`}>
-            <Tooltip.Root open={isActive}>
+    <Tooltip.Provider>
+      <svg
+        width={snapshots.length * width + (snapshots.length - 1) * gap + 2}
+        height={height + 2}
+      >
+        {snapshots.map((d, i) => {
+          const isActive = activeSnapshot?.id === d.id;
+          return (
+            <Tooltip.Root key={d.id} open={isActive}>
               <Tooltip.Trigger asChild>
                 <rect
                   x={width * i + gap * i + baseStrokeWidth / 2}
@@ -62,10 +62,10 @@ const SnapshotTimeline: FC<Props> = ({ snapshots, colorScale }) => {
                 </Tooltip.Content>
               </Tooltip.Portal>
             </Tooltip.Root>
-          </Tooltip.Provider>
-        );
-      })}
-    </svg>
+          );
+        })}
+      </svg>
+    </Tooltip.Provider>
   );
 };
 
