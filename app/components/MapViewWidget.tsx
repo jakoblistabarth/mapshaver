@@ -4,12 +4,12 @@ import {
   RiAddLargeFill,
   RiCollageFill,
   RiCollageLine,
-  RiFlag2Line,
   RiPauseLine,
   RiPlayLine,
+  RiSearchAi4Line,
   RiSubtractLine,
 } from "react-icons/ri";
-import { ViewMode } from "../helpers/store";
+import useAppStore, { ViewMode } from "../helpers/store";
 
 export interface MapViewProps {
   viewMode: ViewMode;
@@ -26,6 +26,7 @@ const MapViewWidget: FC<MapViewProps> = ({
   isAnimating,
   onAnimatingChange,
 }) => {
+  const isDebug = useAppStore((state) => state.isDebug);
   const isViewMode = (value: string): value is ViewMode => {
     return value === "debug" || value === "simple";
   };
@@ -35,27 +36,31 @@ const MapViewWidget: FC<MapViewProps> = ({
       orientation="vertical"
       className="pointer-events-auto absolute top-3 right-3 z-10 rounded-md bg-white p-1 shadow"
     >
-      <Toolbar.ToggleGroup
-        type="single"
-        value={viewMode}
-        orientation="vertical"
-        onValueChange={(value) => {
-          if (isViewMode(value)) {
-            onViewModeChange(value);
-          }
-        }}
-      >
-        <ToggleItem
-          value="debug"
-          title="Show debug view with configuration layers"
-        >
-          <RiCollageLine />
-        </ToggleItem>
-        <ToggleItem value="simple" title="Show simple polygon view">
-          <RiCollageFill />
-        </ToggleItem>
-      </Toolbar.ToggleGroup>
-      <Separator />
+      {isDebug && (
+        <>
+          <Toolbar.ToggleGroup
+            type="single"
+            value={viewMode}
+            orientation="vertical"
+            onValueChange={(value) => {
+              if (isViewMode(value)) {
+                onViewModeChange(value);
+              }
+            }}
+          >
+            <ToggleItem
+              value="debug"
+              title="Show debug view with configuration layers"
+            >
+              <RiCollageLine />
+            </ToggleItem>
+            <ToggleItem value="simple" title="Show simple polygon view">
+              <RiCollageFill />
+            </ToggleItem>
+          </Toolbar.ToggleGroup>
+          <Separator />
+        </>
+      )}
       <div className="flex flex-col space-y-1">
         <ToolbarButton ariaLabel="Zoom-in" onClick={() => onZoom("in")}>
           <RiAddLargeFill />
@@ -63,26 +68,32 @@ const MapViewWidget: FC<MapViewProps> = ({
         <ToolbarButton ariaLabel="Zoom-out" onClick={() => onZoom("out")}>
           <RiSubtractLine />
         </ToolbarButton>
+        <Separator />
         <ToolbarButton ariaLabel="Reset zoom" onClick={() => onZoom("reset")}>
-          <RiFlag2Line />
+          <RiSearchAi4Line />
         </ToolbarButton>
       </div>
-      <Separator />
-      <Toolbar.ToggleGroup
-        aria-label="Toggle animation"
-        type="single"
-        value={isAnimating ? "play" : ""}
-        onValueChange={() => {
-          onAnimatingChange?.(!(isAnimating ?? false));
-        }}
-      >
-        <ToggleItem
-          value="play"
-          title={isAnimating ? "Pause animation" : "Play animation"}
-        >
-          {isAnimating ? <RiPauseLine /> : <RiPlayLine />}
-        </ToggleItem>
-      </Toolbar.ToggleGroup>
+
+      {isDebug && (
+        <>
+          <Separator />
+          <Toolbar.ToggleGroup
+            aria-label="Toggle animation"
+            type="single"
+            value={isAnimating ? "play" : ""}
+            onValueChange={() => {
+              onAnimatingChange?.(!(isAnimating ?? false));
+            }}
+          >
+            <ToggleItem
+              value="play"
+              title={isAnimating ? "Pause animation" : "Play animation"}
+            >
+              {isAnimating ? <RiPauseLine /> : <RiPlayLine />}
+            </ToggleItem>
+          </Toolbar.ToggleGroup>
+        </>
+      )}
     </Toolbar.Root>
   );
 };

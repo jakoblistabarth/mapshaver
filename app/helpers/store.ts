@@ -39,6 +39,9 @@ type AppState = {
   viewMode: ViewMode;
   setViewMode: (mode: ViewMode) => void;
   toggleViewMode: () => void;
+  isDebug: boolean;
+  setDebug: (isDebug: boolean) => void;
+  toggleDebug: () => void;
   activeSnapshot?: Snapshot;
   nextSnapshot?: Snapshot;
   prevSnapshot?: Snapshot;
@@ -149,7 +152,7 @@ const useAppStore = create<AppState>((set, get) => ({
   cConfig: undefined,
   isSchematizing: false,
   runSchematization: (config) => {
-    const { loadedInput, viewMode } = get();
+    const { loadedInput, isDebug } = get();
     if (!loadedInput) return;
     terminateWorker();
 
@@ -157,8 +160,8 @@ const useAppStore = create<AppState>((set, get) => ({
     const request: SchematizationRequest = {
       subdivision: loadedInput.data.toSerialized(),
       cConfig: config,
-      // Every edge move is only worth recording when the steps are actually inspected.
-      keepIntermediateSteps: viewMode === "debug",
+      // do not record steps if not debug view
+      keepIntermediateSteps: isDebug,
     };
 
     worker.onmessage = ({ data }: MessageEvent<SchematizationResponse>) => {
@@ -216,6 +219,9 @@ const useAppStore = create<AppState>((set, get) => ({
     set((state) => ({
       viewMode: state.viewMode === "debug" ? "simple" : "debug",
     })),
+  isDebug: false,
+  setDebug: (isDebug) => set(() => ({ isDebug })),
+  toggleDebug: () => set((state) => ({ isDebug: !state.isDebug })),
   activeSnapshot: undefined,
   setActiveSnapshot: (id) => {
     set((state) => {

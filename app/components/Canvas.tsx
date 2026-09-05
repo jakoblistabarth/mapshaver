@@ -60,6 +60,7 @@ const Canvas: FC<Props> = ({
   const deckglRef = useRef<HTMLDivElement>(null);
   const selectedViewMode = useAppStore((state) => state.viewMode);
   const setViewMode = useAppStore((state) => state.setViewMode);
+  const isDebug = useAppStore((state) => state.isDebug);
   // The debug layers read the Dcel's topology, so without one there is
   // nothing to debug.
   const viewMode = dcel ? selectedViewMode : "simple";
@@ -182,20 +183,25 @@ const Canvas: FC<Props> = ({
       getPolygon: (feature: { polygon: Polygon }) =>
         feature.polygon.toCoordinates(),
       getFillColor: (feature: { uuid: string }) =>
-        feature.uuid === hoveredUuid ? [0, 0, 255, 40] : [0, 0, 255, 20],
+        feature.uuid === hoveredUuid
+          ? [0, 0, 255, 40]
+          : isDebug
+            ? [0, 0, 255, 20]
+            : [0, 0, 255, 0],
       getLineColor: [0, 0, 255, 255],
-      getLineWidth: 1,
+      getLineWidth: isDebug ? 1 : 2,
       lineWidthUnits: "pixels",
       pickable: true,
       onHover: handleHover,
       updateTriggers: {
-        getFillColor: hoveredUuid,
+        getFillColor: [hoveredUuid, isDebug],
+        getLineWidth: isDebug,
       },
       transitions: {
         getFillColor: { duration: 200 },
       },
     });
-  }, [simplePolygonData, hoveredUuid, handleHover]);
+  }, [simplePolygonData, hoveredUuid, handleHover, isDebug]);
 
   const { baseLayers, view } = useMemo(() => {
     const view = new OrthographicView({ flipY: false, id: "ortho" });

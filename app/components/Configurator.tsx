@@ -27,6 +27,7 @@ const Configurator: FC<Props> = ({ files }) => {
     schematizationProgress,
     schematizationError,
     cancelSchematization,
+    isDebug,
   } = useAppStore();
   const [isConfiguring, setIsConfiguring] = useState(false);
 
@@ -51,17 +52,15 @@ const Configurator: FC<Props> = ({ files }) => {
 
   return (
     <>
-      <div className="relative ml-3 w-72">
-        <div className="mb-2">
-          <FileSelect files={files} />
-        </div>
+      <div className="relative ml-3 w-72 space-y-2">
         {!source && (
-          <div className="mb-2">
+          <>
+            <FileSelect files={files} />
             <FileUpload />
-          </div>
+          </>
         )}
         {sourceError && (
-          <div className="mb-2 rounded-md bg-red-50 p-2 text-sm text-red-900">
+          <div className="rounded-md bg-red-50 p-2 text-sm text-red-900">
             {sourceError}
           </div>
         )}
@@ -136,17 +135,21 @@ const Configurator: FC<Props> = ({ files }) => {
               </Button>
             </div>
 
-            <table>
-              <tbody>
-                {info &&
-                  Object.entries(info).map(([key, value]) => (
-                    <tr key={key}>
-                      <td className="pr-4">{key}</td>
-                      <td className="font-mono text-sm">{value}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
+            {/* What the snapshot is made of, which is of interest while working on
+                the algorithm rather than while using it. */}
+            {isDebug && (
+              <table>
+                <tbody>
+                  {info &&
+                    Object.entries(info).map(([key, value]) => (
+                      <tr key={key}>
+                        <td className="pr-4">{key}</td>
+                        <td className="font-mono text-sm">{value}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
         {activeSnapshot && !isConfiguring && <ExportMenu />}

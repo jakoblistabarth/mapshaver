@@ -9,9 +9,18 @@ import SelectItem from "./SelectItem";
 
 type Props = { files: GroupedTestFiles };
 
-const FileSelect: FC<Props> = ({ files }) => {
-  const { setSource, source } = useAppStore();
+const READY_MADE = "simplified";
 
+const FileSelect: FC<Props> = ({ files }) => {
+  const { setSource, source, isDebug } = useAppStore();
+
+  const offered = isDebug
+    ? files
+    : Object.fromEntries(
+        Object.entries(files).filter(([group]) => group === READY_MADE),
+      );
+  // Selecting stays possible for anything already loaded, so that a sample picked in
+  // the debug interface still names itself once that interface is put away.
   const allFiles = Object.values(files).flat();
   // Items are keyed by url, not name: the same name exists in several formats
   // (e.g. AUT_adm1-simple as .json, .fgb and .gpkg).
@@ -33,7 +42,7 @@ const FileSelect: FC<Props> = ({ files }) => {
         aria-label="Select File"
       >
         <span className="min-w-0 truncate">
-          <Select.Value placeholder="Select a file…" />
+          <Select.Value placeholder="Select an example …" />
         </span>
         <Select.Icon className="shrink-0">
           <GoChevronDown />
@@ -45,8 +54,8 @@ const FileSelect: FC<Props> = ({ files }) => {
             <GoChevronUp />
           </Select.ScrollUpButton>
           <Select.Viewport className="p-1.25">
-            {files &&
-              Object.entries(files).map(([groupName, filesInGroup], i) => (
+            {offered &&
+              Object.entries(offered).map(([groupName, filesInGroup], i) => (
                 <Fragment key={groupName}>
                   <Select.Group>
                     <Select.Label className="px-6.25 text-xs leading-6.25">
@@ -58,7 +67,7 @@ const FileSelect: FC<Props> = ({ files }) => {
                       </SelectItem>
                     ))}
                   </Select.Group>
-                  {i + 1 < Object.keys(files).length && (
+                  {i + 1 < Object.keys(offered).length && (
                     <Select.Separator className="my-4 h-px bg-blue-300" />
                   )}
                 </Fragment>

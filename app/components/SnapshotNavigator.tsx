@@ -12,10 +12,17 @@ import Button from "./Button";
 import SnapshotTimeline from "./SnapshotTimeline";
 
 const SnapshotList: FC = () => {
-  const { snapshotList, nextSnapshot, prevSnapshot, setActiveSnapshot } =
-    useAppStore();
+  const {
+    snapshotList,
+    nextSnapshot,
+    prevSnapshot,
+    setActiveSnapshot,
+    isDebug,
+  } = useAppStore();
 
-  if (!snapshotList?.hasSnapshots()) return <></>;
+  // Stepping through the intermediate states is a way of following the algorithm,
+  // not of getting a map out of it, and the snapshots are only recorded for it.
+  if (!isDebug || !snapshotList?.hasSnapshots()) return <></>;
 
   const [durationMin, durationMax] = extent(
     snapshotList?.snapshots.map((d) => d.duration) ?? [],

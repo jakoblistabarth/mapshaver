@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import { DragEvent, FC, useRef, useState } from "react";
 import { RiUploadLine } from "react-icons/ri";
 import useAppStore from "../helpers/store";
@@ -33,14 +34,24 @@ const FileUpload: FC = () => {
       }}
       onDragLeave={() => setIsDraggedOver(false)}
       onClick={() => inputRef.current?.click()}
-      className={`flex cursor-pointer items-center gap-2 rounded-md border border-dashed p-2 text-sm transition-colors ${
+      className={clsx(
+        "flex cursor-pointer flex-col items-center gap-2 rounded-md border border-dashed p-6 text-center transition-colors",
         isDraggedOver
           ? "border-blue-600 bg-blue-50 text-blue-900"
-          : "border-blue-300 bg-white text-blue-900 hover:bg-blue-50"
-      }`}
+          : "border-blue-300 bg-white text-blue-900 hover:bg-blue-50",
+      )}
     >
-      <RiUploadLine />
-      Drop a .fgb, .gpkg or .geojson file
+      <RiUploadLine size={28} />
+      <p>
+        <span className="font-display block font-bold">Drop a file</span>
+        <span className="text-xs text-gray-500">
+          <span className="font-mono">.fgb</span>,{" "}
+          <span className="font-mono">.gpkg</span> or{" "}
+          <span className="font-mono">.geojson</span>
+          <br /> — or click to choose one
+        </span>
+      </p>
+
       <input
         ref={inputRef}
         type="file"
