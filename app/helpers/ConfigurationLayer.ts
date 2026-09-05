@@ -53,7 +53,7 @@ export default class ConfigurationLayer extends CompositeLayer<ConfigurationLaye
           })),
           getColor: [0, 0, 255],
           getSize: 10,
-          fontFamily: "Inter Variable",
+          fontFamily: "Martian Mono Variable",
         }),
       ),
       new ScatterplotLayer(
