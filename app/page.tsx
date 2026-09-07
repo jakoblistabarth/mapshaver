@@ -1,5 +1,6 @@
 import Brand from "./components/Brand";
 import Configurator from "./components/Configurator";
+import DebugToast from "./components/DebugToast";
 import DynamicMap from "./components/DynamicMap";
 import Footer from "./components/Footer";
 import Hotkeys from "./components/Hotkeys";
@@ -13,6 +14,7 @@ const Home = async () => {
   return (
     <>
       <Hotkeys />
+      <DebugToast />
       <div className="grid h-screen grid-rows-[1fr_auto]">
         <main className="relative bg-gray-50">
           <DynamicMap />

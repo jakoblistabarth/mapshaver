@@ -51,7 +51,7 @@ const SnapshotTimeline: FC<Props> = ({ snapshots, colorScale }) => {
               </Tooltip.Trigger>
               <Tooltip.Portal>
                 <Tooltip.Content
-                  className="data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade text-violet11 rounded-sm bg-white px-3.75 py-2.5 text-[15px] leading-none shadow-[hsl(206_22%_7%_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_20%)_0px_10px_20px_-15px] will-change-[transform,opacity] select-none"
+                  className="data-[state=closed]:animate-fadeOut data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=bottom]:animate-slideUpAndFade text-violet11 rounded-sm bg-white px-3.75 py-2.5 text-[15px] leading-none shadow-[hsl(206_22%_7%_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_20%)_0px_10px_20px_-15px] will-change-[transform,opacity] select-none"
                   sideOffset={10}
                 >
                   <strong>{d.label}</strong>
