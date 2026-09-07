@@ -1,25 +1,22 @@
 import Link from "next/link";
 import { RiGithubLine } from "react-icons/ri";
+import Button from "./Button";
 
 const Footer = () => {
   return (
     <>
-      <footer
-        className="bg-white p-3"
-        // grid-area footer
-      >
+      <footer className="bg-white p-3">
         <div className="flex gap-5">
           <Link href={"/about"}>About</Link>
-          <Link href={"/implementation/configuration"}>Algorithm</Link>
           <div className="flex grow justify-end">
             <Link
               className="flex items-center"
               href={"https://github.com/jakoblistabarth/mapshaver"}
+              aria-label="GitHub Repository"
             >
-              <div className="mr-1">
+              <Button variant="ghost">
                 <RiGithubLine />
-              </div>
-              Github
+              </Button>
             </Link>
           </div>
         </div>
