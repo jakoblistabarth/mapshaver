@@ -30,7 +30,7 @@ const CPreview: FC<Props> = ({ c }) => {
                   x2={size / 2 - 10}
                   transform={`rotate(${-angleInDegrees})`}
                   className={clsx(
-                    isPrimary ? "stroke-blue-500" : "stroke-blue-100",
+                    isPrimary ? "stroke-blue-600" : "stroke-blue-100",
                   )}
                 />
                 {isPrimary && (
@@ -38,7 +38,7 @@ const CPreview: FC<Props> = ({ c }) => {
                     x={labelX}
                     y={labelY}
                     textAnchor="middle"
-                    className="fill-blue-500 stroke-blue-50 stroke-4 font-mono text-xs font-stretch-ultra-expanded"
+                    className="fill-blue-600 stroke-blue-50 stroke-4 font-mono text-xs font-stretch-ultra-expanded"
                     dominantBaseline="middle"
                     paintOrder="stroke"
                   >

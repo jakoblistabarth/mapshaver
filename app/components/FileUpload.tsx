@@ -43,8 +43,10 @@ const FileUpload: FC = () => {
     >
       <RiUploadLine size={28} />
       <p>
-        <span className="font-display block font-bold">Drop a file</span>
-        <span className="text-xs text-gray-500">
+        <span className="font-display block font-bold text-blue-600">
+          Drop a file
+        </span>
+        <span className="text-xs text-blue-600/80">
           <span className="font-mono">.fgb</span>,{" "}
           <span className="font-mono">.gpkg</span> or{" "}
           <span className="font-mono">.geojson</span>

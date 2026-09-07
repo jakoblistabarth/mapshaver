@@ -82,7 +82,7 @@ const Tooltip: FC<TooltipProps> = memo(
           top: (cursorPos?.y ?? hoverInfo.y) + 10,
         }}
       >
-        <div className="flex gap-2 border-b border-l-2 border-b-blue-50 border-l-blue-500 p-2 font-mono">
+        <div className="flex gap-2 border-b border-l-2 border-b-blue-50 border-l-blue-600 p-2 font-mono">
           <span>{tooltipContent?.type ?? "Unknown object"}</span>
           <span className="font-bold">{hoverInfo?.object?.uuid}</span>
         </div>
