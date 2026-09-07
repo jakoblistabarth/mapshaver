@@ -14,11 +14,11 @@ type Props = {
 
 const SnapshotTimeline: FC<Props> = ({ snapshots, colorScale }) => {
   const { setActiveSnapshot, activeSnapshot } = useAppStore();
-  const width = 10;
+  const width = 4;
   const height = 25;
   const baseStrokeWidth = 2;
   const grow = 5;
-  const gap = 2;
+  const gap = 1;
 
   return !snapshots.length ? null : (
     <Tooltip.Provider>

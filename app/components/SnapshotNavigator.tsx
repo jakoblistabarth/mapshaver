@@ -34,17 +34,19 @@ const SnapshotList: FC = () => {
   const snapshotsByStep = snapshotList?.getSnapshotByStep();
 
   return (
-    <div className="self-align-middle relative mx-auto mb-5 flex items-center justify-between gap-2 rounded-md bg-white p-1 px-2 shadow">
-      <h2 className="flex justify-between gap-1 text-xs font-bold">
+    <div className="self-align-middle relative mx-auto mb-5 flex w-fit max-w-[min(92vw,64rem)] items-center justify-between gap-2 rounded-md bg-white p-1 px-2 shadow">
+      <h2 className="flex shrink-0 justify-between gap-1 text-xs font-bold">
         <RiCamera3Line size={15} />
         Snapshots
       </h2>
-      {snapshotsByStep?.map(([step, snapshots]) => (
-        <div key={step}>
-          <SnapshotTimeline colorScale={colorScale} snapshots={snapshots} />
-        </div>
-      ))}
-      <div className="flex gap-1">
+      <div className="flex min-w-0 items-center gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-blue-300 [&::-webkit-scrollbar-track]:bg-blue-50">
+        {snapshotsByStep?.map(([step, snapshots]) => (
+          <div key={step}>
+            <SnapshotTimeline colorScale={colorScale} snapshots={snapshots} />
+          </div>
+        ))}
+      </div>
+      <div className="flex shrink-0 gap-1">
         <Button
           className="size-8 transition-opacity duration-500 disabled:pointer-events-none disabled:opacity-20"
           onClick={() =>
