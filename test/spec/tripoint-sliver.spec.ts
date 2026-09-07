@@ -9,10 +9,10 @@ import path from "path";
 import { describe, expect, test } from "vitest";
 
 /**
- * Three regions meeting at a tripoint they miss by a little, which is what a
- * simplified boundary does to a shared corner. The triangle they leave uncovered
- * belongs to no region, so the unbounded face takes it, and that face is then
- * bounded by a ring around the outside and another around the sliver.
+ * Three regions which miss the tripoint they share.
+ * The triangle they leave over belongs to no region, so the unbounded face
+ * takes it and is left bounded by two rings: one around the outside
+ * and one around the sliver. Each region borders it along both.
  */
 const shape = () =>
   JSON.parse(
@@ -22,25 +22,49 @@ const shape = () =>
     ),
   );
 
-describe("A region bordering the unbounded face along two of its rings", function () {
-  test("is what a sliver left at a tripoint produces.", function () {
+describe("A map with a sliver left at a tripoint", function () {
+  test("leaves the unbounded face bounded by more than one ring.", function () {
     const dcel = Dcel.fromGeoJSON(shape());
-    const boundaries = new FaceFaceBoundaryListGenerator()
-      .run(dcel)
-      .getBoundaries();
+    const unbounded = dcel.faces.find((face) => face.isUnbounded);
+    const edges = dcel.getHalfEdges().filter((edge) => edge.face === unbounded);
 
-    // Walking a ring never reaches an edge on another, so a boundary running along
-    // two of them is one whose edges no single cycle holds.
-    const spanningTwoRings = boundaries.filter((boundary) => {
-      const cycles: (typeof boundary.edges)[] = [];
-      boundary.edges.forEach((edge) => {
-        if (!cycles.some((cycle) => cycle.includes(edge)))
-          cycles.push(edge.getCycle());
-      });
-      return cycles.length > 1;
+    const rings: (typeof edges)[] = [];
+    edges.forEach((edge) => {
+      if (!rings.some((ring) => ring.includes(edge)))
+        rings.push(edge.getCycle());
     });
 
-    expect(spanningTwoRings.length).toBeGreaterThan(0);
+    expect(rings.length).toBeGreaterThan(1);
+  });
+
+  test("describes every boundary by the edges of a face which encloses something.", function () {
+    const boundaries = new FaceFaceBoundaryListGenerator()
+      .run(Dcel.fromGeoJSON(shape()))
+      .getBoundaries();
+
+    boundaries.forEach((boundary) =>
+      boundary.edges.forEach((edge) =>
+        expect(edge.face?.isUnbounded).toBe(false),
+      ),
+    );
+  });
+
+  test("keeps every boundary on a single ring.", function () {
+    const boundaries = new FaceFaceBoundaryListGenerator()
+      .run(Dcel.fromGeoJSON(shape()))
+      .getBoundaries();
+
+    // Only the unbounded face is bounded by more than one ring here, so describing a
+    // boundary by the other face is what keeps its edges on one of them — and the
+    // distance from one edge of a boundary to another is a distance along that ring.
+    boundaries.forEach((boundary) => {
+      const rings: (typeof boundary.edges)[] = [];
+      boundary.edges.forEach((edge) => {
+        if (!rings.some((ring) => ring.includes(edge)))
+          rings.push(edge.getCycle());
+      });
+      expect(rings.length).toBe(1);
+    });
   });
 
   test("is schematized rather than refused.", function () {

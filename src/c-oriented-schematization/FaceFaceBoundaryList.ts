@@ -15,8 +15,22 @@ class FaceFaceBoundaryList {
     this.boundaries = this.create(dcel);
   }
 
+  /**
+   * Orders a pair of faces, so that the boundary between them is always described
+   * the same way round.
+   *
+   * The unbounded face is made last of all, so by id it comes last, and a boundary is
+   * described by the edges of a face which encloses something.
+   * @param faceA The first {@link Face}.
+   * @param faceB The second {@link Face}.
+   * @returns The two faces, in a stable order.
+   */
   static sortFaces(faceA: Face, faceB: Face) {
-    return [faceA, faceB].sort((a, b) => a.uuid.localeCompare(b.uuid));
+    return [faceA, faceB].sort((a, b) =>
+      typeof a.id === "number" && typeof b.id === "number"
+        ? a.id - b.id
+        : a.uuid.localeCompare(b.uuid),
+    );
   }
 
   /**
