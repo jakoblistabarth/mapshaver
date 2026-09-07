@@ -1,0 +1,178 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "west"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [0, 0],
+            [18, 18],
+            [20, 22],
+            [20, 40],
+            [0, 40],
+            [0, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "east"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [40, 0],
+            [40, 40],
+            [20, 40],
+            [20, 22],
+            [22, 18],
+            [40, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "name": "south"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [0, 0],
+            [40, 0],
+            [22, 18],
+            [18, 18],
+            [0, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "name": "filler0"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [100, 0],
+            [110, 0],
+            [110, 10],
+            [100, 10],
+            [100, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "name": "filler1"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [120, 0],
+            [130, 0],
+            [130, 10],
+            [120, 10],
+            [120, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 6,
+        "name": "filler2"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [140, 0],
+            [150, 0],
+            [150, 10],
+            [140, 10],
+            [140, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 7,
+        "name": "filler3"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [160, 0],
+            [170, 0],
+            [170, 10],
+            [160, 10],
+            [160, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 8,
+        "name": "filler4"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [180, 0],
+            [190, 0],
+            [190, 10],
+            [180, 10],
+            [180, 0]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 9,
+        "name": "filler5"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [200, 0],
+            [210, 0],
+            [210, 10],
+            [200, 10],
+            [200, 0]
+          ]
+        ]
+      }
+    }
+  ]
+}
