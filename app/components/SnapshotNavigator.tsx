@@ -66,6 +66,7 @@ const SnapshotList: FC = () => {
             prevSnapshot ? setActiveSnapshot(prevSnapshot.id) : undefined
           }
           disabled={!prevSnapshot}
+          aria-label="Previous snapshot"
         >
           <RiSkipBackLine size={15} />
         </Button>
@@ -75,6 +76,7 @@ const SnapshotList: FC = () => {
             nextSnapshot ? setActiveSnapshot(nextSnapshot.id) : undefined
           }
           disabled={!nextSnapshot}
+          aria-label="Next snapshot"
         >
           <RiSkipForwardLine size={15} />
         </Button>

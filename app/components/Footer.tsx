@@ -14,7 +14,7 @@ const Footer = () => {
               href={"https://github.com/jakoblistabarth/mapshaver"}
               aria-label="GitHub Repository"
             >
-              <Button variant="ghost">
+              <Button variant="ghost" aria-label="GitHub Repository">
                 <RiGithubLine />
               </Button>
             </Link>
