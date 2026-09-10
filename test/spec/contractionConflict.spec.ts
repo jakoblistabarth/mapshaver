@@ -1,8 +1,8 @@
 import Configuration from "@/src/c-oriented-schematization/Configuration";
-import CRegular from "@/src/c-oriented-schematization/CRegular";
-import CSchematization from "@/src/c-oriented-schematization/CSchematization";
 import ConfigurationGenerator from "@/src/c-oriented-schematization/ConfigurationGenerator";
 import { ContractionType } from "@/src/c-oriented-schematization/ContractionType";
+import CRegular from "@/src/c-oriented-schematization/CRegular";
+import CSchematization from "@/src/c-oriented-schematization/CSchematization";
 import { style } from "@/src/c-oriented-schematization/schematization.style";
 import Dcel from "@/src/Dcel/Dcel";
 import fs from "fs";
@@ -11,12 +11,12 @@ import { describe, expect, test } from "vitest";
 
 /**
  * Reads a shape and builds a {@link Configuration} for each of its half edges.
- * @param shape The name of a shape in `test/data/shapes`.
+ * @param shape The name of a shape in `test/data/synthetic`.
  * @returns The configurations.
  */
 const getConfigurations = (shape: string) => {
   const json = JSON.parse(
-    fs.readFileSync(path.resolve("test/data/shapes", shape), "utf8"),
+    fs.readFileSync(path.resolve("test/data/synthetic", shape), "utf8"),
   );
   return Array.from(
     new ConfigurationGenerator().run(Dcel.fromGeoJSON(json)).values(),
@@ -88,7 +88,7 @@ describe("A compensation which takes on exactly the area asked of it", function 
       // Both areas being equal puts the discriminant of the compensation's height at
       // zero, which coordinates round to just below it.
       const json = JSON.parse(
-        fs.readFileSync(path.resolve("test/data/shapes", shape), "utf8"),
+        fs.readFileSync(path.resolve("test/data/synthetic", shape), "utf8"),
       );
       const schematization = new CSchematization({
         ...style,

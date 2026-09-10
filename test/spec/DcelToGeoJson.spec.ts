@@ -24,7 +24,7 @@ const loadTestFile = (filePath: string) => {
 };
 
 describe("toSubdivision converts to a valid subdivision from a DCEL of test case", function () {
-  const testFile = "test/data/shapes/square-hole.json";
+  const testFile = "test/data/synthetic/square-hole.json";
   const input = loadTestFile(testFile);
   const dcel = Dcel.fromGeoJSON(input.json);
 
@@ -68,7 +68,7 @@ describe("toSubdivision converts to a valid subdivision from a DCEL of test case
 });
 
 describe("toSubdivision converts to a valid subdivision from a DCEL of test case", function () {
-  const testFile = "test/data/shapes/edge-cases.json";
+  const testFile = "test/data/synthetic/edge-cases.json";
   const input = loadTestFile(testFile);
   const dcel = Dcel.fromGeoJSON(input.json);
 
@@ -91,7 +91,7 @@ describe("toSubdivision converts to a valid subdivision from a DCEL of test case
 });
 
 describe("toSubdivision converts to a valid subdivision from a DCEL of test case", function () {
-  const testFile = "test/data/shapes/2plgn-islands-holes.json";
+  const testFile = "test/data/synthetic/2plgn-islands-holes.json";
   const input = loadTestFile(testFile);
   const dcel = Dcel.fromGeoJSON(input.json);
 
@@ -107,7 +107,7 @@ describe("toSubdivision converts to a valid subdivision from a DCEL of test case
 });
 
 describe("toSubdivision converts to a valid subdivision from a DCEL of test case", function () {
-  const testFile = "test/data/shapes/square-3-nested-islands.json";
+  const testFile = "test/data/synthetic/square-3-nested-islands.json";
   const input = loadTestFile(testFile);
   const dcel = Dcel.fromGeoJSON(input.json);
 

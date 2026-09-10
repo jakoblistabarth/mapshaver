@@ -12,14 +12,14 @@ import { describe, expect, test } from "vitest";
 
 const c4edgemove = JSON.parse(
   fs.readFileSync(
-    path.resolve("test/data/shapes/c4-edge-move.subdivision.json"),
+    path.resolve("test/data/synthetic/c4-edge-move.subdivision.json"),
     "utf8",
   ),
 );
 
 const c4edgemove2 = JSON.parse(
   fs.readFileSync(
-    path.resolve("test/data/shapes/c4-edge-move-2.subdivision.json"),
+    path.resolve("test/data/synthetic/c4-edge-move-2.subdivision.json"),
     "utf8",
   ),
 );

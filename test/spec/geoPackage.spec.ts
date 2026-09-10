@@ -103,7 +103,7 @@ describe("Reading a GeoPackage", () => {
 
 describe("A GeoPackage and its GeoJSON source", () => {
   const cases = [
-    ["square.gpkg", "test/data/shapes/square.json"],
+    ["square.gpkg", "test/data/synthetic/square.json"],
     ["AUT_adm1-simple.gpkg", "test/data/geodata/AUT_adm1-simple.json"],
   ] as const;
 

@@ -17,7 +17,7 @@ import { describe, expect, test } from "vitest";
 const shape = () =>
   JSON.parse(
     fs.readFileSync(
-      path.resolve("test/data/shapes/tripoint-sliver.json"),
+      path.resolve("test/data/synthetic/tripoint-sliver.json"),
       "utf8",
     ),
   );

@@ -9,7 +9,10 @@ describe("replaceOuterRingEdge()", function () {
   let innerRing: Face;
   beforeEach(function () {
     const polygon = JSON.parse(
-      readFileSync(path.resolve("test/data/shapes/square-hole.json"), "utf8"),
+      readFileSync(
+        path.resolve("test/data/synthetic/square-hole.json"),
+        "utf8",
+      ),
     );
     const dcel = Dcel.fromGeoJSON(polygon);
     innerRing = dcel.getBoundedFaces()[1];
@@ -43,7 +46,10 @@ describe("getRings()", function () {
   const squareWithHole = () =>
     Dcel.fromGeoJSON(
       JSON.parse(
-        readFileSync(path.resolve("test/data/shapes/square-hole.json"), "utf8"),
+        readFileSync(
+          path.resolve("test/data/synthetic/square-hole.json"),
+          "utf8",
+        ),
       ),
     );
 
@@ -76,7 +82,10 @@ describe("Removing a HalfEdge from the Dcel", function () {
   test("gives up its registration as the inner edge of a face", function () {
     const dcel = Dcel.fromGeoJSON(
       JSON.parse(
-        readFileSync(path.resolve("test/data/shapes/square-hole.json"), "utf8"),
+        readFileSync(
+          path.resolve("test/data/synthetic/square-hole.json"),
+          "utf8",
+        ),
       ),
     );
     const enclosing = dcel

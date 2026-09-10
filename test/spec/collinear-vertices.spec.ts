@@ -8,7 +8,7 @@ describe("Removing collinear vertices", function () {
   test("on a triangle-shaped DCEL of with colleinar vertices, results in a DCEL of 3 vertices", function () {
     const json = JSON.parse(
       readFileSync(
-        path.resolve("test/data/shapes/collinear-vertices-triangle.json"),
+        path.resolve("test/data/synthetic/collinear-vertices-triangle.json"),
         "utf8",
       ),
     );
@@ -21,7 +21,7 @@ describe("Removing collinear vertices", function () {
   test("on a square-shaped DCEL of with collinear vertices, results in a DCEL of 4 vertices", function () {
     const json = JSON.parse(
       readFileSync(
-        path.resolve("test/data/shapes/collinear-vertices-square.json"),
+        path.resolve("test/data/synthetic/collinear-vertices-square.json"),
         "utf8",
       ),
     );
@@ -33,7 +33,7 @@ describe("Removing collinear vertices", function () {
 
   test("removes 3 collinear points", function () {
     const json = JSON.parse(
-      readFileSync(path.resolve("test/data/shapes/square.json"), "utf8"),
+      readFileSync(path.resolve("test/data/synthetic/square.json"), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(json);
     dcel.getBoundedFaces()[0].getEdges()[0].subdivide();
@@ -46,7 +46,7 @@ describe("Removing collinear vertices", function () {
 
   test("removes 4 collinear points", function () {
     const json = JSON.parse(
-      readFileSync(path.resolve("test/data/shapes/square.json"), "utf8"),
+      readFileSync(path.resolve("test/data/synthetic/square.json"), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(json);
     dcel.getBoundedFaces()[0].getEdges()[0].subdivide()?.subdivide();

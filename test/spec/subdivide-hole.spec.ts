@@ -1,8 +1,8 @@
 import Dcel from "@/src/Dcel/Dcel";
 import Face from "@/src/Dcel/Face";
+import { geoPackageToGeometry } from "@/src/Input/geoPackage";
 import CSchematization from "@/src/c-oriented-schematization/CSchematization";
 import { style } from "@/src/c-oriented-schematization/schematization.style";
-import { geoPackageToGeometry } from "@/src/Input/geoPackage";
 import Point from "@/src/geometry/Point";
 import fs from "fs";
 import path from "path";
@@ -11,7 +11,7 @@ import { beforeEach, describe, expect, test } from "vitest";
 const fromShape = (name: string) =>
   Dcel.fromGeoJSON(
     JSON.parse(
-      fs.readFileSync(path.resolve(`test/data/shapes/${name}.json`), "utf8"),
+      fs.readFileSync(path.resolve(`test/data/synthetic/${name}.json`), "utf8"),
     ),
   );
 

@@ -9,7 +9,7 @@ describe("A Dcel from a geojson with a simplified enclave model", function () {
 
   beforeEach(function () {
     const polygon = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/enclave.json"), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic/enclave.json"), "utf8"),
     );
     dcel = Dcel.fromGeoJSON(polygon);
   });
@@ -81,7 +81,10 @@ describe("A Dcel of an simplified enclave model (reversed order)", function () {
 
   beforeEach(function () {
     const polygon = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/enclave2.json"), "utf8"),
+      fs.readFileSync(
+        path.resolve("test/data/synthetic/enclave2.json"),
+        "utf8",
+      ),
     );
     dcel = Dcel.fromGeoJSON(polygon);
   });

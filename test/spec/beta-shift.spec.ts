@@ -18,7 +18,7 @@ describe("Beta shift for schematization using a regular C", function () {
 
   test("should simplify without throwing an error", function () {
     const inputJson = JSON.parse(
-      readFileSync(resolve("test/data/shapes/triangle.json"), "utf8"),
+      readFileSync(resolve("test/data/synthetic/triangle.json"), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(inputJson);
     const schematization = new CSchematization(cStyle);
@@ -28,7 +28,7 @@ describe("Beta shift for schematization using a regular C", function () {
 
   test("should keep all constrained edges aligned to shifted C", function () {
     const inputJson = JSON.parse(
-      readFileSync(resolve("test/data/shapes/triangle.json"), "utf8"),
+      readFileSync(resolve("test/data/synthetic/triangle.json"), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(inputJson);
     const schematization = new CSchematization(cStyle);

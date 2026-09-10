@@ -21,7 +21,7 @@ import {
 describe("getTrack()", function () {
   test("return the correct angles for the reflex point for a square shape", function () {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/square.json"), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic/square.json"), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(json);
     const configurations = new ConfigurationGenerator().run(dcel);
@@ -455,7 +455,7 @@ describe("getJunctionType() determines the type of a junction in respect to the 
   beforeEach(function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/edge-move-test.json"),
+        path.resolve("test/data/synthetic/edge-move-test.json"),
         "utf8",
       ),
     );
@@ -507,7 +507,7 @@ describe("A contraction of a configuration meeting a junction", function () {
   beforeEach(function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/edge-move-test.json"),
+        path.resolve("test/data/synthetic/edge-move-test.json"),
         "utf8",
       ),
     );
@@ -564,7 +564,7 @@ describe("getTrack() at a junction of type B", function () {
   beforeEach(function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/edge-move-test.json"),
+        path.resolve("test/data/synthetic/edge-move-test.json"),
         "utf8",
       ),
     );

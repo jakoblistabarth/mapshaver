@@ -60,7 +60,7 @@ describe("geojsonToGeometry parses a geojson feature collection of a simple encl
 
   beforeEach(function () {
     const geojson = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/enclave.json"), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic/enclave.json"), "utf8"),
     );
     subdivision = geoJsonToGeometry(geojson);
   });

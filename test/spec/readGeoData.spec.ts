@@ -56,7 +56,7 @@ describe("Reading geodata", () => {
     for (const file of [
       "test/data/gpkg/square.gpkg",
       "test/data/fgb/square.fgb",
-      "test/data/shapes/square.json",
+      "test/data/synthetic/square.json",
     ]) {
       const result = await read(file);
       expect(result.ok, file).toBe(true);
@@ -108,7 +108,7 @@ describe("Reading geodata", () => {
     });
 
     test("passes data within the limit.", async () => {
-      const result = await read("test/data/shapes/square.json", {
+      const result = await read("test/data/synthetic/square.json", {
         maxVertexCount: 4,
       });
 

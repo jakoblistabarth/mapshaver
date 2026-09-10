@@ -10,7 +10,7 @@ describe("A Dcel of a single triangle with one triangular hole", function () {
   beforeEach(function () {
     const polygon = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/triangle-hole.json"),
+        path.resolve("test/data/synthetic/triangle-hole.json"),
         "utf8",
       ),
     );

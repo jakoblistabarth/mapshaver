@@ -10,7 +10,7 @@ describe("A Dcel from a geojson feature collection of a single square with one s
   beforeEach(function () {
     const polygon = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/square-hole.json"),
+        path.resolve("test/data/synthetic/square-hole.json"),
         "utf8",
       ),
     );

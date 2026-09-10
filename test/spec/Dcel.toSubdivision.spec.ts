@@ -28,8 +28,8 @@ describe("A Subdivision converted to a Dcel and back", () => {
     "test/data/geodata/AUT_adm1.json",
     "test/data/geodata/ne_50m_europe_mapunits-s20.json",
     "test/data/geodata/ne_50m_africa_admin0-s20.json",
-    "test/data/shapes/2plgn-islands-holes.json",
-    "test/data/shapes/3plgn-complex.json",
+    "test/data/synthetic/2plgn-islands-holes.json",
+    "test/data/synthetic/3plgn-complex.json",
   ])("keeps the rings of %s.", { timeout: 60_000 }, (path) => {
     const input = read(path);
 

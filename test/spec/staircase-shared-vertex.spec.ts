@@ -8,7 +8,7 @@ import { describe, expect, test } from "vitest";
 
 const json = JSON.parse(
   fs.readFileSync(
-    path.resolve("test/data/shapes/staircase-shared-vertex.json"),
+    path.resolve("test/data/synthetic/staircase-shared-vertex.json"),
     "utf8",
   ),
 );

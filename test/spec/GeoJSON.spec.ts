@@ -8,7 +8,7 @@ import { describe, expect, test } from "vitest";
 import { getTestFiles } from "./test-setup";
 
 describe("validate geoJSON file (simple shape)", function () {
-  const dir = "test/data/shapes";
+  const dir = "test/data/synthetic";
   const testFiles = getTestFiles(dir, true);
 
   testFiles.forEach((file) => {

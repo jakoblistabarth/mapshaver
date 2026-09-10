@@ -9,7 +9,7 @@ describe("A ConfigurationPair with overlapping configurations", function () {
   it("ConfigurationPairs with an shared outer Edge are identified.", function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/smallest-contraction.json"),
+        path.resolve("test/data/synthetic/smallest-contraction.json"),
         "utf8",
       ),
     );

@@ -12,7 +12,7 @@ describe("isConflicting() returns", function () {
   beforeEach(function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/edge-move-test.json"),
+        path.resolve("test/data/synthetic/edge-move-test.json"),
         "utf8",
       ),
     );
@@ -92,7 +92,7 @@ describe("isConflicting() returns", function () {
   test("true for 2 conflicting contractions, due to too many overlapping Edges. (1.4)", function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/smallest-contraction-2.json"),
+        path.resolve("test/data/synthetic/smallest-contraction-2.json"),
         "utf8",
       ),
     );

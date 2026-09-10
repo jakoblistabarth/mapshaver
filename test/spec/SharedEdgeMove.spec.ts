@@ -16,7 +16,7 @@ import { describe, expect, test, vi } from "vitest";
 describe("SharedEdgeMove with diamond.json", function () {
   test("Full pipeline: diamond shape should trigger shared edge move coordination", function () {
     const inputJson = JSON.parse(
-      readFileSync(resolve("test/data/shapes/diamond.json"), "utf8"),
+      readFileSync(resolve("test/data/synthetic/diamond.json"), "utf8"),
     );
 
     const dcel = Dcel.fromGeoJSON(inputJson);
@@ -36,7 +36,7 @@ describe("SharedEdgeMove with smallest-contraction.json", function () {
   test("Should trigger shared edge move coordination", function () {
     const inputJson = JSON.parse(
       readFileSync(
-        resolve("test/data/shapes/smallest-contraction.json"),
+        resolve("test/data/synthetic/smallest-contraction.json"),
         "utf8",
       ),
     );
@@ -58,7 +58,7 @@ describe("SharedEdgeMove on smallest-contraction-1a.json", function () {
   test("should simplify iteratively without introducing new orientations", function () {
     const inputJson = JSON.parse(
       readFileSync(
-        resolve("test/data/shapes/smallest-contraction-1a.json"),
+        resolve("test/data/synthetic/smallest-contraction-1a.json"),
         "utf8",
       ),
     );
@@ -136,7 +136,7 @@ describe("A coupled edge move whose contraction leaves no inner edge", function 
     ["3plgn-complex.json", 6],
   ])("preserves the area of %s under C(%i)", function (shape, orientations) {
     const inputJson = JSON.parse(
-      readFileSync(resolve("test/data/shapes", shape), "utf8"),
+      readFileSync(resolve("test/data/synthetic", shape), "utf8"),
     );
     const schematization = new CSchematization({
       ...style,

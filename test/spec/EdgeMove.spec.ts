@@ -19,7 +19,7 @@ describe("createConfigurations()", function () {
   test("adds configuration to all edges which are possible candidates for edge moves (which endpoints are of degree 3 or less).", function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/aligned-deviating.json"),
+        path.resolve("test/data/synthetic/aligned-deviating.json"),
         "utf8",
       ),
     );
@@ -50,7 +50,7 @@ describe("doEdgeMove()", function () {
   test("for the test case 'smallest-contraction'", function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/smallest-contraction.json"),
+        path.resolve("test/data/synthetic/smallest-contraction.json"),
         "utf8",
       ),
     );
@@ -93,7 +93,7 @@ describe("doEdgeMove()", function () {
   test("for the test case 'smallest-contraction-2", function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/smallest-contraction-2.json"),
+        path.resolve("test/data/synthetic/smallest-contraction-2.json"),
         "utf8",
       ),
     );
@@ -114,7 +114,7 @@ describe("doEdgeMove()", function () {
   test("for the test case 'contractions-equal'", function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/contractions-equal.json"),
+        path.resolve("test/data/synthetic/contractions-equal.json"),
         "utf8",
       ),
     );
@@ -159,7 +159,10 @@ describe("Triangle.json edge move verification after one edge move", function ()
 
   beforeAll(() => {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/triangle.json"), "utf8"),
+      fs.readFileSync(
+        path.resolve("test/data/synthetic/triangle.json"),
+        "utf8",
+      ),
     );
 
     dcel = Dcel.fromGeoJSON(json);
@@ -212,7 +215,7 @@ describe("Blocked contractions are correctly identified and prevented from edge 
   test("unaligned-deviating-2: cross-face vertex blocking prevents invalid edge moves", function () {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/unaligned-deviating-2.json"),
+        path.resolve("test/data/synthetic/unaligned-deviating-2.json"),
         "utf8",
       ),
     );
@@ -334,7 +337,9 @@ describe("Thoroughly check edge DCEL after edge move", function () {
       "Simplest edge move",
       JSON.parse(
         fs.readFileSync(
-          path.resolve("test/data/shapes/simplest-edge-move.subdivision.json"),
+          path.resolve(
+            "test/data/synthetic/simplest-edge-move.subdivision.json",
+          ),
           "utf8",
         ),
       ),
@@ -366,7 +371,7 @@ describe("Thoroughly check edge DCEL after edge move", function () {
 describe("At least 6 iterations shall be possible for diamond shape", function () {
   test("Diamond shape should allow at least 6 edge moves before stopping.", function () {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/diamond.json"), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic/diamond.json"), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(json);
     const schematization = new CSchematization();
@@ -378,12 +383,12 @@ describe("At least 6 iterations shall be possible for diamond shape", function (
 describe("Simplification stops as soon as no configuration pair is left", function () {
   /**
    * Collects the number of half edges of every snapshot the simplify step records.
-   * @param shape The name of a shape in `test/data/shapes`.
+   * @param shape The name of a shape in `test/data/synthetic`.
    * @returns The half edge count per recorded simplification snapshot.
    */
   const getSimplifySnapshotSizes = (shape: string) => {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes", shape), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic", shape), "utf8"),
     );
     const sizes: number[] = [];
     const schematization = new CSchematization(
@@ -414,7 +419,7 @@ describe("Simplification stops as soon as no configuration pair is left", functi
 
   test("does not throw when asked for more edge moves than are possible", function () {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/square.json"), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic/square.json"), "utf8"),
     );
     const schematization = new CSchematization();
 
@@ -446,7 +451,7 @@ describe("Contractions ending on a junction are not applied", function () {
     "%s keeps its edges free of overlaps",
     function (shape) {
       const json = JSON.parse(
-        fs.readFileSync(path.resolve("test/data/shapes", shape), "utf8"),
+        fs.readFileSync(path.resolve("test/data/synthetic", shape), "utf8"),
       );
 
       for (let maxMoves = 1; maxMoves <= 12; maxMoves++) {
@@ -466,7 +471,7 @@ describe("A contraction whose inner edge vanishes", function () {
     // meet, which used to move it onto its own previous edge and break the cycle.
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/triangle-unaligned.json"),
+        path.resolve("test/data/synthetic/triangle-unaligned.json"),
         "utf8",
       ),
     );
@@ -487,12 +492,12 @@ describe("A contraction whose inner edge vanishes", function () {
 describe("EdgeMoveProcessor reports a missing pair apart from a failed move", function () {
   /**
    * Runs a single edge move on a shape.
-   * @param shape The name of a shape in `test/data/shapes`.
+   * @param shape The name of a shape in `test/data/synthetic`.
    * @returns What the {@link EdgeMoveProcessor} reported.
    */
   const runOneMove = (shape: string) => {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes", shape), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic", shape), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(json);
     const configurations = new ConfigurationGenerator().run(dcel);
@@ -531,7 +536,7 @@ describe("Edge moves over a junction of type A", function () {
     "simplify %s under C(%i) down to %i edges",
     function (shape, orientations, edges) {
       const json = JSON.parse(
-        fs.readFileSync(path.resolve("test/data/shapes", shape), "utf8"),
+        fs.readFileSync(path.resolve("test/data/synthetic", shape), "utf8"),
       );
       const schematization = new CSchematization({
         ...style,

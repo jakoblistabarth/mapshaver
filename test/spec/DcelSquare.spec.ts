@@ -9,7 +9,7 @@ describe("A Dcel of a single square", function () {
 
   beforeEach(function () {
     const polygon = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/square.json"), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic/square.json"), "utf8"),
     );
     dcel = Dcel.fromGeoJSON(polygon);
   });

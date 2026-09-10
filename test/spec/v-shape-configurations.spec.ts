@@ -8,7 +8,7 @@ import { describe, expect, test } from "vitest";
 
 describe("v-shape.json - invalid configurations chosen", function () {
   const json = JSON.parse(
-    fs.readFileSync(path.resolve("test/data/shapes/v-shape.json"), "utf8"),
+    fs.readFileSync(path.resolve("test/data/synthetic/v-shape.json"), "utf8"),
   );
 
   test("Check geometry after 14 edge moves iterations", function () {

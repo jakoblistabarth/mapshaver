@@ -11,7 +11,7 @@ describe("create()", function () {
   test("on a dcel of 2 adjacent squares returns FaceFaceBoundaryList with 3 entries and the correct number of Edges", function () {
     const json = JSON.parse(
       readFileSync(
-        path.resolve("test/data/shapes/2plgn-adjacent.json"),
+        path.resolve("test/data/synthetic/2plgn-adjacent.json"),
         "utf8",
       ),
     );
@@ -28,7 +28,7 @@ describe("create()", function () {
   test("on a dcel of 3 adjacent squares returns 5 FaceFaceBoundaryList with 5 entries and the correct number of Edges", function () {
     const json = JSON.parse(
       readFileSync(
-        path.resolve("test/data/shapes/3plgn-adjacent.json"),
+        path.resolve("test/data/synthetic/3plgn-adjacent.json"),
         "utf8",
       ),
     );
@@ -70,7 +70,7 @@ describe("getMinimalConfigurationPair()", function () {
   test("on a test file returns the expected contraction pair.", function () {
     const json = JSON.parse(
       readFileSync(
-        path.resolve("test/data/shapes/smallest-contraction.json"),
+        path.resolve("test/data/synthetic/smallest-contraction.json"),
         "utf8",
       ),
     );
@@ -98,7 +98,7 @@ describe("getMinimalConfigurationPair()", function () {
   test("on a test file returns the expected contraction pair.", function () {
     const json = JSON.parse(
       readFileSync(
-        path.resolve("test/data/shapes/smallest-contraction-2.json"),
+        path.resolve("test/data/synthetic/smallest-contraction-2.json"),
         "utf8",
       ),
     );

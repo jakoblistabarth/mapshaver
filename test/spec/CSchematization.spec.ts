@@ -23,7 +23,7 @@ describe(
     });
 
     describe("For synthetic data", function () {
-      const dir = "test/data/shapes";
+      const dir = "test/data/synthetic";
       const testFiles = getTestFiles(dir, true);
 
       testFiles

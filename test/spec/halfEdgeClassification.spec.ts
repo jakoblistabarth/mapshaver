@@ -395,7 +395,10 @@ describe("Given the examples in the paper of Buchin et al., classify() works as 
 describe("classifyEdges() in a classification where all edges are classified and a halfedge and its twin share the same class", function () {
   test("on simple test data", function () {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/edge-cases.json"), "utf8"),
+      fs.readFileSync(
+        path.resolve("test/data/synthetic/edge-cases.json"),
+        "utf8",
+      ),
     );
     const dcel = Dcel.fromGeoJSON(json);
     const schematization = new CSchematization();
@@ -503,7 +506,7 @@ describe("An edge along a direction of C gets no staircase", function () {
     // collapses the polygon into a single edge of zero area.
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/2plgn-complex.json"),
+        path.resolve("test/data/synthetic/2plgn-complex.json"),
         "utf8",
       ),
     );

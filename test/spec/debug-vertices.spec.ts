@@ -13,7 +13,7 @@ describe("Debug vertex removal in smallest-contraction-1a.json", () => {
   test("trace vertices through simplification iterations", () => {
     const json = JSON.parse(
       fs.readFileSync(
-        path.resolve("test/data/shapes/smallest-contraction-1a.json"),
+        path.resolve("test/data/synthetic/smallest-contraction-1a.json"),
         "utf8",
       ),
     );
@@ -60,7 +60,10 @@ describe("Debug vertex removal in smallest-contraction-1a.json", () => {
 
   test("test triangle.json simplification with full pipeline - detailed debugging", () => {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/triangle.json"), "utf8"),
+      fs.readFileSync(
+        path.resolve("test/data/synthetic/triangle.json"),
+        "utf8",
+      ),
     );
     const dcel = Dcel.fromGeoJSON(json);
 
@@ -102,7 +105,7 @@ describe("Debug vertex removal in smallest-contraction-1a.json", () => {
 
   test("test diamond.json simplification with full pipeline", () => {
     const json = JSON.parse(
-      fs.readFileSync(path.resolve("test/data/shapes/diamond.json"), "utf8"),
+      fs.readFileSync(path.resolve("test/data/synthetic/diamond.json"), "utf8"),
     );
     const dcel = Dcel.fromGeoJSON(json);
 

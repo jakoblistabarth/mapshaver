@@ -84,7 +84,7 @@ describe("Reading a FlatGeobuf file", () => {
 
 describe("A FlatGeobuf file and its GeoJSON source", () => {
   const cases = [
-    ["square.fgb", "test/data/shapes/square.json"],
+    ["square.fgb", "test/data/synthetic/square.json"],
     ["AUT_adm1-simple.fgb", "test/data/geodata/AUT_adm1-simple.json"],
   ] as const;
 
@@ -148,7 +148,7 @@ describe("An Input from a FlatGeobuf file", () => {
 
   test("defaults a GeoJSON input to WGS84.", () => {
     const input = Input.fromGeoJSON(
-      readGeoJSON("test/data/shapes/square.json"),
+      readGeoJSON("test/data/synthetic/square.json"),
       "square.json",
     );
 

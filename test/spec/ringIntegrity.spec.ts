@@ -12,7 +12,7 @@ import { describe, expect, test } from "vitest";
  * recording a snapshot does. A face cycle can be sound while a ring is not, so this
  * reaches defects `Face#getEdges` cannot see — a hole whose registered inner edge is
  * no longer part of it, above all.
- * @param shape The name of a shape in `test/data/shapes`.
+ * @param shape The name of a shape in `test/data/synthetic`.
  * @param orientations The number of orientations of C.
  * @param beta The rotation of C, in degrees.
  */
@@ -22,7 +22,7 @@ const schematizeWalkingEveryRing = (
   beta: number,
 ) => {
   const json = JSON.parse(
-    readFileSync(resolve("test/data/shapes", shape), "utf8"),
+    readFileSync(resolve("test/data/synthetic", shape), "utf8"),
   );
   const schematization = new CSchematization(
     { ...style, c: new CRegular(orientations, degreesToRadians(beta)) },
@@ -73,7 +73,7 @@ describe("A hole outlives the edge it is reached through", function () {
     // Both lakes used to be lost, at the point where the edge each was reached
     // through collapsed onto itself and was removed with the hole still there.
     const json = JSON.parse(
-      readFileSync(resolve("test/data/shapes/edge-cases.json"), "utf8"),
+      readFileSync(resolve("test/data/synthetic/edge-cases.json"), "utf8"),
     );
     const schematization = new CSchematization({
       ...style,

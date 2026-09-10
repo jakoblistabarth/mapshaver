@@ -32,7 +32,7 @@ const simplifyPercentages = ["0.01", ".05", ".1"];
  * reserved OGC_FID column, which cannot be written back as a regular field.
  */
 const fixtures = [
-  { source: "test/data/shapes/square.json", name: "square" },
+  { source: "test/data/synthetic/square.json", name: "square" },
   {
     source: "test/data/geodata/AUT_adm1-simple.json",
     name: "AUT_adm1-simple",

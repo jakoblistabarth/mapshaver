@@ -1,7 +1,7 @@
 import CSchematization from "@/src/c-oriented-schematization/CSchematization";
 import { isAlignedToC } from "@/src/c-oriented-schematization/HalfEdgeUtils";
-import Face from "@/src/Dcel/Face";
 import Dcel from "@/src/Dcel/Dcel";
+import Face from "@/src/Dcel/Face";
 import { DECIMAL_SCALE } from "@/src/geometry/constants";
 import fs from "fs";
 import path from "path";
@@ -10,7 +10,7 @@ import { describe, expect, test } from "vitest";
 describe("unaligned-deviating-2.json - Geometry Progression", function () {
   const json = JSON.parse(
     fs.readFileSync(
-      path.resolve("test/data/shapes/unaligned-deviating-2.json"),
+      path.resolve("test/data/synthetic/unaligned-deviating-2.json"),
       "utf8",
     ),
   );
@@ -60,7 +60,7 @@ describe("unaligned-deviating-2.json - Geometry Progression", function () {
 describe("unaligned-deviating-2.json - Face simplicity", function () {
   const json = JSON.parse(
     fs.readFileSync(
-      path.resolve("test/data/shapes/unaligned-deviating-2.json"),
+      path.resolve("test/data/synthetic/unaligned-deviating-2.json"),
       "utf8",
     ),
   );

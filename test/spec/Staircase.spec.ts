@@ -329,7 +329,7 @@ describe("Staircases for a diamond rotated square of side length 1)", function (
 describe("Floating point precision in staircase generation", function () {
   test("Checks potentially affected staircase vertex in triangle.json", function () {
     const json = JSON.parse(
-      readFileSync(path.resolve("test/data/shapes/triangle.json"), "utf8"),
+      readFileSync(path.resolve("test/data/synthetic/triangle.json"), "utf8"),
     );
 
     let dcel = Dcel.fromGeoJSON(json);
