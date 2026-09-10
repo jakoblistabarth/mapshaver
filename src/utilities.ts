@@ -195,3 +195,23 @@ export const formatInteger = (num: number) => format(",")(num);
  * @returns the formatted string
  */
 export const formatFloat = (num: number) => format(",.2f")(num);
+
+const formatSignificant = format(".3~r");
+
+/**
+ * Formats a duration in the unit it reads best in.
+ *
+ * @param ms the duration, in milliseconds
+ * @returns milliseconds below a second, seconds below a minute, minutes and seconds above it
+ */
+export const formatDuration = (ms: number) => {
+  // Not 1000: 999.6ms rounds to "1000ms"
+  if (ms < 999.5) return `${formatSignificant(ms)}ms`;
+  const seconds = ms / 1000;
+  // Counted in tenths
+  if (Math.round(seconds * 10) < 600) return `${format(".1f")(seconds)}s`;
+  // Rounded before it is split, so that the seconds cannot come out as 60.
+  const whole = Math.round(seconds);
+  const minutes = Math.floor(whole / 60);
+  return `${formatInteger(minutes)}m ${whole - minutes * 60}s`;
+};

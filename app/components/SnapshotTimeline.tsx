@@ -1,6 +1,7 @@
 "use client";
 
 import Snapshot from "@/src/Snapshot/Snapshot";
+import { formatDuration } from "@/src/utilities";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import clsx from "clsx";
 import { ScaleLinear } from "d3";
@@ -56,7 +57,7 @@ const SnapshotTimeline: FC<Props> = ({ snapshots, colorScale }) => {
                 >
                   <strong>{d.label}</strong>
                   <p>
-                    {i + 1}/{snapshots.length} {d.duration}ms
+                    {i + 1}/{snapshots.length} {formatDuration(d.duration)}
                   </p>
                   <Tooltip.Arrow className="fill-white" />
                 </Tooltip.Content>
