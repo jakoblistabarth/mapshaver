@@ -127,6 +127,35 @@
   }
 }
 
+@property --border-sweep-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes borderOrbit {
+  to {
+    --border-sweep-angle: 360deg;
+  }
+}
+
+@utility border-sweep {
+  background-image: conic-gradient(
+    from var(--border-sweep-angle),
+    var(--color-blue-200) 0deg,
+    var(--color-blue-600) 40deg,
+    var(--color-blue-200) 90deg,
+    var(--color-blue-200) 360deg
+  );
+  animation: borderOrbit 4s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    background-image: none;
+    background-color: var(--color-blue-300);
+    animation: none;
+  }
+}
+
 @utility text-shimmer {
   background-image: linear-gradient(
     100deg,

@@ -1,7 +1,12 @@
 "use client";
 
 import { formatCrs } from "@/src/Input/Crs";
-import { formatFloat, formatInteger, MAX_VERTEX_COUNT } from "@/src/utilities";
+import {
+  formatDuration,
+  formatFloat,
+  formatInteger,
+  MAX_VERTEX_COUNT,
+} from "@/src/utilities";
 import { FC, useEffect, useMemo, useState } from "react";
 import { MdClose } from "react-icons/md";
 import { RiSettings3Line } from "react-icons/ri";
@@ -27,9 +32,26 @@ const Configurator: FC<Props> = ({ files }) => {
     schematizationProgress,
     schematizationError,
     cancelSchematization,
+    schematizationStartedAt,
+    schematizationDuration,
     isDebug,
   } = useAppStore();
   const [isConfiguring, setIsConfiguring] = useState(false);
+  const [now, setNow] = useState(() => performance.now());
+
+  useEffect(() => {
+    if (!isSchematizing) return;
+    const tick = setInterval(() => setNow(performance.now()), 100);
+    return () => clearInterval(tick);
+  }, [isSchematizing]);
+
+  // use elapsed time while schematizing
+  // when finished, use the duration
+  const elapsed = isSchematizing
+    ? schematizationStartedAt === undefined
+      ? undefined
+      : now - schematizationStartedAt
+    : schematizationDuration;
 
   // A new source starts over from the configurator, so the reopened one must not linger.
   useEffect(() => setIsConfiguring(false), [source]);
@@ -42,7 +64,7 @@ const Configurator: FC<Props> = ({ files }) => {
   const info = useMemo(() => {
     if (!dcel) return undefined;
     return {
-      duration: `${activeSnapshot?.duration}ms`,
+      duration: formatDuration(activeSnapshot?.duration ?? 0),
       vertices: formatInteger(dcel.vertices.size),
       halfEdges: formatInteger(dcel.halfEdges.size),
       faces: formatInteger(dcel.getBoundedFaces().length),
@@ -66,11 +88,23 @@ const Configurator: FC<Props> = ({ files }) => {
         )}
         {source && (
           <div className="rounded-md bg-white p-2">
-            <div className="flex content-between items-center">
-              {source.name}
+            <div className="flex items-center gap-2">
+              <span className="min-w-0 flex-1 truncate">{source.name}</span>
+              {activeSnapshot && !isConfiguring && (
+                <button
+                  className="shrink-0 rounded-full p-1 text-gray-500 transition-colors hover:bg-blue-50 hover:text-blue-900"
+                  onClick={() => setIsConfiguring(true)}
+                  title="Configure the set of orientations"
+                  aria-label="Configure the set of orientations"
+                >
+                  <RiSettings3Line />
+                </button>
+              )}
               <button
-                className="ml-5 rounded-full bg-blue-600 p-1 text-blue-50 transition-colors hover:bg-blue-950"
+                className="shrink-0 rounded-full bg-blue-600 p-1 text-blue-50 transition-colors hover:bg-blue-950"
                 onClick={() => removeSource()}
+                title="Remove this input"
+                aria-label="Remove this input"
               >
                 <MdClose />
               </button>
@@ -103,18 +137,39 @@ const Configurator: FC<Props> = ({ files }) => {
           />
         )}
         {isSchematizing && (
-          <div className="mt-2 flex items-center justify-between gap-2 rounded-md bg-white p-2 text-sm">
-            <span className="text-gray-500">
-              <span className="text-shimmer">Schematizing</span>
-              {schematizationProgress && (
-                <>
-                  {" · "}
-                  <pre className="inline">{schematizationProgress.label}</pre> (
-                  {schematizationProgress.step})
-                </>
-              )}
-            </span>
-            <Button onClick={cancelSchematization}>Cancel</Button>
+          // Use background with inset (padding) rather than a border
+          // for the gradient animation
+          <div className="border-sweep rounded-md p-px">
+            <div className="flex items-center gap-2 rounded-md bg-white p-2 text-sm">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-shimmer">Schematizing</span>
+                </div>
+                {schematizationProgress && (
+                  <div className="truncate font-mono text-xs text-gray-500">
+                    {schematizationProgress.label} ·{" "}
+                    {elapsed !== undefined && (
+                      <>
+                        <span className="ml-auto shrink-0 font-mono text-xs text-gray-500 tabular-nums">
+                          {formatDuration(elapsed)}
+                        </span>{" "}
+                        ·{" "}
+                      </>
+                    )}
+                    <span className="tabular-nums">
+                      {formatInteger(schematizationProgress.step)}
+                    </span>
+                  </div>
+                )}
+              </div>
+              <Button
+                className="shrink-0"
+                variant="destructive"
+                onClick={cancelSchematization}
+              >
+                Cancel
+              </Button>
+            </div>
           </div>
         )}
         {schematizationError && (
@@ -124,15 +179,16 @@ const Configurator: FC<Props> = ({ files }) => {
         )}
         {activeSnapshot && !isConfiguring && (
           <div className="mt-2 rounded-md bg-white p-2 text-sm">
-            <div className="mb-2 flex items-center justify-between gap-2 text-gray-500">
-              <span>
+            <div className="mb-2 flex items-baseline gap-2 text-gray-500">
+              <span className="min-w-0 truncate">
                 Snapshot{" "}
                 <pre className="inline font-black">{activeSnapshot.label}</pre>
               </span>
-              <Button onClick={() => setIsConfiguring(true)}>
-                <RiSettings3Line className="mr-1" />
-                Configure
-              </Button>
+              {elapsed !== undefined && (
+                <span className="ml-auto shrink-0 font-mono text-xs tabular-nums">
+                  {formatDuration(elapsed)}
+                </span>
+              )}
             </div>
 
             {/* What the snapshot is made of, which is of interest while working on

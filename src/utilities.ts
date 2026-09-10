@@ -215,3 +215,11 @@ export const formatDuration = (ms: number) => {
   const minutes = Math.floor(whole / 60);
   return `${formatInteger(minutes)}m ${whole - minutes * 60}s`;
 };
+
+/**
+ * How long ago something was started.
+ * @param startedAt when it was started, on the same clock
+ * @returns the time since, or nothing where there is no start to measure from
+ */
+export const elapsedSince = (startedAt?: number) =>
+  startedAt === undefined ? undefined : performance.now() - startedAt;

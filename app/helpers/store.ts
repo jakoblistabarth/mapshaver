@@ -3,6 +3,7 @@ import Input from "@/src/Input/";
 import { Crs } from "@/src/Input/Crs";
 import Snapshot from "@/src/Snapshot/Snapshot";
 import SnapshotList from "@/src/Snapshot/SnapshotList";
+import { elapsedSince } from "@/src/utilities";
 import { create } from "zustand";
 import { withBasePath } from "./basePath";
 import { parseGeoFile, parseGeoUrl, type ParseResult } from "./parseGeoFile";
@@ -51,6 +52,10 @@ type AppState = {
   /** Whether a schematization is currently running in the worker. */
   isSchematizing: boolean;
   schematizationProgress?: SchematizationProgress;
+  /** When the running schematization was started, to measure it against. */
+  schematizationStartedAt?: number;
+  /** What the last schematization took, once it is no longer running. */
+  schematizationDuration?: number;
   schematizationError?: string;
   runSchematization: (config: CConfig) => void;
   cancelSchematization: () => void;
@@ -83,6 +88,8 @@ const clearedState = {
   cConfig: undefined,
   isSchematizing: false,
   schematizationProgress: undefined,
+  schematizationStartedAt: undefined,
+  schematizationDuration: undefined,
   schematizationError: undefined,
 } satisfies Partial<AppState>;
 
@@ -183,23 +190,33 @@ const useAppStore = create<AppState>((set, get) => ({
         });
       if (data.type === "error") {
         terminateWorker();
-        return set(() => ({
+        return set((state) => ({
           isSchematizing: false,
+          schematizationDuration: elapsedSince(state.schematizationStartedAt),
           schematizationError: data.message,
         }));
       }
       terminateWorker();
-      set(() => ({ isSchematizing: false }));
+      set((state) => ({
+        isSchematizing: false,
+        schematizationDuration: elapsedSince(state.schematizationStartedAt),
+      }));
     };
 
     worker.onerror = ({ message }) => {
       terminateWorker();
-      set(() => ({ isSchematizing: false, schematizationError: message }));
+      set((state) => ({
+        isSchematizing: false,
+        schematizationDuration: elapsedSince(state.schematizationStartedAt),
+        schematizationError: message,
+      }));
     };
 
     set(() => ({
       cConfig: config,
       isSchematizing: true,
+      schematizationStartedAt: performance.now(),
+      schematizationDuration: undefined,
       schematizationError: undefined,
       schematizationProgress: undefined,
       snapshotList: new SnapshotList(),
@@ -211,7 +228,11 @@ const useAppStore = create<AppState>((set, get) => ({
   },
   cancelSchematization: () => {
     terminateWorker();
-    set(() => ({ isSchematizing: false }));
+    // A run which was cancelled still took the time, which is displayed.
+    set((state) => ({
+      isSchematizing: false,
+      schematizationDuration: elapsedSince(state.schematizationStartedAt),
+    }));
   },
   viewMode: "simple",
   setViewMode: (mode: ViewMode) => set(() => ({ viewMode: mode })),
