@@ -4,8 +4,8 @@ export default function Page() {
       <h2 className="text-xl">About this tool</h2>
       <p>
         Mapshaver is a web based cartographic schematization tool, written in
-        Typescript. It supports the schematization of geo data (Shapefile,
-        GeoJSON) in an accessible and interactiveway. It implements the
+        Typescript. It supports the schematization of geo data (GeoPackage,
+        FlatGeobuf) in an accessible and interactive way. It implements the
         algorithm proposed in:
         <span className="mt-2 block border-l p-1 px-4 font-mono">
           Area-Preserving Simplification and Schematization of Polygonal

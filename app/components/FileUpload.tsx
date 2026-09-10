@@ -47,9 +47,8 @@ const FileUpload: FC = () => {
           Drop a file
         </span>
         <span className="text-xs text-blue-600/80">
-          <span className="font-mono">.fgb</span>,{" "}
           <span className="font-mono">.gpkg</span> or{" "}
-          <span className="font-mono">.geojson</span>
+          <span className="font-mono">.fgb</span>
           <br /> — or click to choose one
         </span>
       </p>
@@ -57,7 +56,7 @@ const FileUpload: FC = () => {
       <input
         ref={inputRef}
         type="file"
-        accept=".fgb,.gpkg,.geojson,.json"
+        accept=".fgb,.gpkg"
         className="hidden"
         onChange={(event) => {
           handleFiles(event.target.files);

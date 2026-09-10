@@ -19,25 +19,25 @@ export const outputGroups = {
   graphics: { label: "Graphics", hint: "for vector software" },
 } satisfies Record<OutputGroup, { label: string; hint: string }>;
 
+export type OfferedFormat = Exclude<OutputFormat, "geojson">;
+
 /** How each format names itself, and which group it belongs to. */
 export const outputFormats = {
   gpkg: { label: "GeoPackage", group: "geodata" },
   fgb: { label: "FlatGeobuf", group: "geodata" },
-  geojson: { label: "GeoJSON", group: "geodata" },
   svg: { label: "SVG", group: "graphics" },
-} satisfies Record<OutputFormat, { label: string; group: OutputGroup }>;
+} satisfies Record<OfferedFormat, { label: string; group: OutputGroup }>;
 
 /** The MIME type each format is handed to the browser as. */
 const mimeTypes = {
   gpkg: "application/geopackage+sqlite3",
   fgb: "application/vnd.flatgeobuf",
-  geojson: "application/geo+json",
   svg: "image/svg+xml",
-} satisfies Record<OutputFormat, string>;
+} satisfies Record<OfferedFormat, string>;
 
 /** The formats of one group, in the order they are declared. */
 export const formatsOf = (group: OutputGroup) =>
-  (Object.keys(outputFormats) as OutputFormat[]).filter(
+  (Object.keys(outputFormats) as OfferedFormat[]).filter(
     (format) => outputFormats[format].group === group,
   );
 
@@ -60,7 +60,7 @@ const baseName = (name: string) =>
  */
 export const toExportFile = async (
   subdivision: Subdivision,
-  format: OutputFormat,
+  format: OfferedFormat,
   { name, crs }: { name: string; crs?: Crs },
 ) => {
   const contents = await serializeSubdivision(subdivision, format, {
