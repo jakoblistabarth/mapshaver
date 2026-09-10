@@ -1,7 +1,7 @@
 "use client";
 
 import { extent, scaleLinear } from "d3";
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import {
   RiCamera3Line,
   RiSkipBackLine,
@@ -19,6 +19,16 @@ const SnapshotList: FC = () => {
     setActiveSnapshot,
     isDebug,
   } = useAppStore();
+
+  /** The strip the steps scroll in, kept at its right end as they arrive. */
+  const strip = useRef<HTMLDivElement>(null);
+  const recorded = snapshotList?.snapshots.length ?? 0;
+
+  // A run records to the end of the list, so it is the end which is worth looking at.
+  // Held here rather than by anchoring the scroll, which browsers only do vertically.
+  useEffect(() => {
+    if (strip.current) strip.current.scrollLeft = strip.current.scrollWidth;
+  }, [recorded]);
 
   // Stepping through the intermediate states is a way of following the algorithm,
   // not of getting a map out of it, and the snapshots are only recorded for it.
@@ -39,7 +49,10 @@ const SnapshotList: FC = () => {
         <RiCamera3Line size={15} />
         Snapshots
       </h2>
-      <div className="flex min-w-0 items-center gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-blue-300 [&::-webkit-scrollbar-track]:bg-blue-50">
+      <div
+        ref={strip}
+        className="flex min-w-0 items-center gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-blue-300 [&::-webkit-scrollbar-track]:bg-blue-50"
+      >
         {snapshotsByStep?.map(([step, snapshots]) => (
           <div key={step}>
             <SnapshotTimeline colorScale={colorScale} snapshots={snapshots} />
