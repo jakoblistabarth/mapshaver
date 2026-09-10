@@ -159,7 +159,7 @@ const useAppStore = create<AppState>((set, get) => ({
   cConfig: undefined,
   isSchematizing: false,
   runSchematization: (config) => {
-    const { loadedInput, isDebug } = get();
+    const { loadedInput } = get();
     if (!loadedInput) return;
     terminateWorker();
 
@@ -168,7 +168,6 @@ const useAppStore = create<AppState>((set, get) => ({
       subdivision: loadedInput.data.toSerialized(),
       cConfig: config,
       // do not record steps if not debug view
-      keepIntermediateSteps: isDebug,
     };
 
     worker.onmessage = ({ data }: MessageEvent<SchematizationResponse>) => {

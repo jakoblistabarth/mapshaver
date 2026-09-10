@@ -18,14 +18,12 @@ const flushInterval = 100;
 const post = (message: SchematizationResponse) => self.postMessage(message);
 
 self.onmessage = ({
-  data: { subdivision, cConfig, keepIntermediateSteps },
+  data: { subdivision, cConfig },
 }: MessageEvent<SchematizationRequest>) => {
   let buffer: SerializedSnapshot[] = [];
   let lastFlush = performance.now();
   let label = LABEL.LOAD;
   let step = 0;
-  // Without the intermediate steps only the outcome of the simplification is reported.
-  let lastSimplifySnapshot: SerializedSnapshot | undefined;
 
   const flush = (force = false) => {
     if (!force && performance.now() - lastFlush < flushInterval) return;
@@ -49,9 +47,7 @@ self.onmessage = ({
             triggeredAt: forSnapshots.triggeredAt,
             additionalData: forSnapshots.additionalData,
           }).toSerialized();
-          if (!keepIntermediateSteps && snapshotLabel === LABEL.SIMPLIFY)
-            lastSimplifySnapshot = snapshot;
-          else buffer.push(snapshot);
+          buffer.push(snapshot);
           flush();
         },
       },
@@ -59,7 +55,6 @@ self.onmessage = ({
 
     schematization.run(Subdivision.fromSerialized(subdivision).toDcel());
 
-    if (lastSimplifySnapshot) buffer.push(lastSimplifySnapshot);
     flush(true);
     post({ type: "done" });
   } catch (error) {

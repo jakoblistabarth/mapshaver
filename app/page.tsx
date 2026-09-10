@@ -5,6 +5,7 @@ import DynamicMap from "./components/DynamicMap";
 import Footer from "./components/Footer";
 import Hotkeys from "./components/Hotkeys";
 import SnapshotNavigator from "./components/SnapshotNavigator";
+import SnapshotSlider from "./components/SnapshotSlider";
 import Teaser from "./components/Teaser";
 import getGroupedTestFiles from "./helpers/getGroupedTestFiles";
 
@@ -29,8 +30,9 @@ const Home = async () => {
             <div className="self-center [grid-area:main]">
               <Teaser />
             </div>
-            <div className="self-end justify-self-center [grid-area:bottom-nav]">
+            <div className="relative z-10 self-end justify-self-center [grid-area:bottom-nav]">
               <SnapshotNavigator />
+              <SnapshotSlider />
             </div>
           </div>
         </main>

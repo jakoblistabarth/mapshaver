@@ -73,6 +73,32 @@ class Subdivision {
   }
 
   /**
+   * The subdivision's edge count.
+   *
+   * A boundary between two polygons is stored once in each of their rings, so the
+   * segments are counted without regard to which way round they run and without
+   * their duplicates — which is the same edge a {@link Dcel} would hold, without
+   * building one to ask.
+   */
+  get edgeCount() {
+    const edges = new Set<string>();
+    this.multiPolygons.forEach((multiPolygon) =>
+      multiPolygon.polygons.forEach((polygon) =>
+        polygon.rings.forEach((ring) =>
+          ring.points.forEach((point, index) => {
+            const next = ring.points[(index + 1) % ring.points.length];
+            // The point a ring closes on repeats its first, and joins nothing.
+            if (point.x === next.x && point.y === next.y) return;
+            const [a, b] = [`${point.x},${point.y}`, `${next.x},${next.y}`];
+            edges.add(a < b ? `${a}|${b}` : `${b}|${a}`);
+          }),
+        ),
+      ),
+    );
+    return edges.size;
+  }
+
+  /**
    * The subdivision's vertex count, excluding the repeated closing point
    * each {@link Ring} stores.
    */

@@ -13,7 +13,6 @@ export type SchematizationRequest = {
    * Whether to keep a snapshot of every single edge move (only useful for debugging)
    * TODO: This should probably removed/handled differently in production
    */
-  keepIntermediateSteps: boolean;
 };
 
 /** The messages the schematization worker sends back while and after running. */
