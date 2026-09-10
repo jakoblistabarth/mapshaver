@@ -22,7 +22,7 @@ const SnapshotTimeline: FC<Props> = ({ snapshots, colorScale }) => {
   const gap = 1;
 
   return !snapshots.length ? null : (
-    <Tooltip.Provider>
+    <Tooltip.Provider delayDuration={150}>
       <svg
         width={snapshots.length * width + (snapshots.length - 1) * gap + 2}
         height={height + 2}
@@ -30,7 +30,7 @@ const SnapshotTimeline: FC<Props> = ({ snapshots, colorScale }) => {
         {snapshots.map((d, i) => {
           const isActive = activeSnapshot?.id === d.id;
           return (
-            <Tooltip.Root key={d.id} open={isActive}>
+            <Tooltip.Root key={d.id}>
               <Tooltip.Trigger asChild>
                 <rect
                   x={width * i + gap * i + baseStrokeWidth / 2}
