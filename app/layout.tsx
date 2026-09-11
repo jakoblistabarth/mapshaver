@@ -13,18 +13,20 @@ const martianGrotesk = localFont({
   weight: "100 900",
 });
 
-const title = "Mapshaver";
+const siteName = "Mapshaver";
+const title = `${siteName} – Schematized maps on demand`;
 const description =
-  "Schematized maps on demand. Shave down vertices for smoother maps – Treat your polygons right.";
+  "Schematized maps on demand. Drop in your geodata and shave off vertices for a smoother map: simplify and stylize polygon data, every feature keeping its size.";
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
-  title,
+  // The template names the pages below, which set a title of their own.
+  title: { default: title, template: `%s · ${siteName}` },
   description,
   openGraph: {
     title,
     description,
-    siteName: title,
+    siteName,
     url: siteUrl,
     type: "website",
     images: [

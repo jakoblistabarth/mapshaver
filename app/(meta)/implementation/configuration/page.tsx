@@ -1,3 +1,7 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Configuration" };
+
 import DynamicDcelViewer from "@/app/components/DynamicDcelViewer";
 import DescriptionList from "@/app/components/DescriptionList";
 import Math from "@/app/components/Math";

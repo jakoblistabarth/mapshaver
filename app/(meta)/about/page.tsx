@@ -1,3 +1,11 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "How Mapshaver works: an interactive TypeScript implementation of the area-preserving simplification and schematization algorithm by Buchin et al. (2016).",
+};
+
 export default function Page() {
   return (
     <div className="py-10">
