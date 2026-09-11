@@ -2,8 +2,8 @@
 
 ## Introduction
 
-_Mapshaver_ is a cartographic schematization tool written in TypeScript.
-It aims to support the schematization of geodata (Shapefile, GeoJSON) in an interactive and accessible way.
+[Mapshaver](https://jakoblistabarth.github.io/mapshaver) is a cartographic schematization tool written in TypeScript.
+It aims to support the schematization of geodata (GeoPackage, FlatGeobuf) in an interactive and accessible way.
 
 It is inspired by the Matthew Bloch's [Mapshaper](https://github.com/mbloch/mapshaper) tool and uses the _Area-Preserving Simplification and Schematization of Polygonal Subdivisions_ (Buchin, K., Meulemans, W., Van Renssen, A., & Speckmann, B. (2016). Area-Preserving Simplification and Schematization of Polygonal Subdivisions. ACM Transactions on Spatial Algorithms and Systems , 2(1), 1-36. [2]. https://doi.org/10.1145/2818373.)
 
@@ -12,17 +12,18 @@ It is inspired by the Matthew Bloch's [Mapshaper](https://github.com/mbloch/maps
 ### Setup
 
 Building and testing _Mapshaver_ requires [Node.js](http://nodejs.org).
+It uses [pnpm](https://pnpm.io/) as a package manager.
 
 Install build dependencies with:
 
 ```bash
-npm i
+pnpm i
 ```
 
 Start the developing server with:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ### CLI
