@@ -3,6 +3,7 @@ import "@fontsource-variable/martian-mono/wdth.css";
 import { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { siteUrl } from "./helpers/url";
 
 const martianGrotesk = localFont({
   src: "./fonts/MartianGrotesk[wdth,wght].woff2",
@@ -11,20 +12,6 @@ const martianGrotesk = localFont({
   fallback: ["system-ui"],
   weight: "100 900",
 });
-
-/**
- * Where the site is served from.
- *
- * A crawler does not resolve a relative image, so the card spells its URLs out in
- * full, and on a project page the base path is part of that. Kept with a trailing
- * slash, so that a path below it is joined rather than replacing the last segment.
- */
-const siteUrl = new URL(
-  `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/`.replace(
-    /\/+$/,
-    "/",
-  ),
-);
 
 const title = "Mapshaver";
 const description =

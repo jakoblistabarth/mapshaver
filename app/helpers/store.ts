@@ -5,7 +5,7 @@ import Snapshot from "@/src/Snapshot/Snapshot";
 import SnapshotList from "@/src/Snapshot/SnapshotList";
 import { elapsedSince } from "@/src/utilities";
 import { create } from "zustand";
-import { withBasePath } from "./basePath";
+import { withBasePath } from "./url";
 import { parseGeoFile, parseGeoUrl, type ParseResult } from "./parseGeoFile";
 import type { SourceRef } from "./sampleFile";
 import type {

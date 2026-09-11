@@ -1,4 +1,4 @@
-import { withBasePath } from "./basePath";
+import { withBasePath } from "./url";
 
 /**
  * sql.js resolves its wasm relative to the page, which fails in the browser.
